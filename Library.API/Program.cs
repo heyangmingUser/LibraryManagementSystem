@@ -18,9 +18,18 @@ namespace Library.API
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+             .ConfigureWebHostDefaults(webBuilder =>
+             {
+                 webBuilder.UseStartup<Startup>();
+             })
+            .ConfigureLogging(logger =>
+            {
+                logger.ClearProviders();
+                logger.AddFilter("System", LogLevel.Warning);
+                logger.AddFilter("Microsoft", LogLevel.Warning);
+                logger.AddLog4Net();
+                logger.SetMinimumLevel(LogLevel.Trace);
+            });
+           
     }
 }
